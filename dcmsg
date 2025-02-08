@@ -1,0 +1,32 @@
+#!/bin/bash
+
+WEBHOOK_URL="$1"
+MESSAGE="$2"
+EMBED="$3"
+TITLE="$4"
+COLOR="$5"
+FOOTER="$6"
+
+if [ -z "$WEBHOOK_URL" ] || [ -z "$MESSAGE" ]; then
+    echo "Usage: dcmsg <webhook> <message> [embed] [title] [color] [footer]"
+    exit 1
+fi
+
+if [ "$EMBED" == "true" ]; then
+    JSON_PAYLOAD='{
+        "embeds": [
+            {
+                "title": "'"$TITLE"'",
+                "description": "'"$MESSAGE"'",
+                "color": '"$COLOR"',
+                "footer": { "text": "'"$FOOTER"'" }
+            }
+        ]
+    }'
+else
+    JSON_PAYLOAD='{
+        "content": "'"$MESSAGE"'"
+    }'
+fi
+
+curl -H "Content-Type: application/json" -d "$JSON_PAYLOAD" "$WEBHOOK_URL"
