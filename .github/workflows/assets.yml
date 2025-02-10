@@ -1,0 +1,24 @@
+name: Release Build
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Upload installation.sh
+        uses: softprops/action-gh-release@v2
+        with:
+          files: repository/main/installation.sh
+        
+      - name: Upload dcmsg
+        uses: softprops/action-gh-release@v2
+        with:
+          files: repository/main/dcmsg
