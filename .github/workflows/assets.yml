@@ -1,21 +1,30 @@
-name: Release Build
+name: Create Release and Upload Assets
 
 on:
   release:
-    types:
-      - created
+    types: [created]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Upload release assets
-        uses: softprops/action-gh-release@v2
+      - name: Upload dcmsg
+        uses: actions/upload-release-asset@v1
         with:
-          files: |
-            repository/main/installation.sh
-            repository/main/dcmsg
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./dcmsg
+          asset_name: dcmsg
+          asset_content_type: text/plain
+
+      - name: Upload installation.sh
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./installation.sh
+          asset_name: installation.sh
+          asset_content_type: text/plain
