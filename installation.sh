@@ -1,6 +1,6 @@
 #!/bin/bash
 
-URL="https://github.com/scriptrblxs/dcmsg/releases/download/v1.0.0/dcmsg"
+URL="https://raw.githubusercontent.com/scriptrblxs/dcmsg/refs/tags/v1.0.0/dcmsg"
 FILENAME="$(basename "$URL")"
 
 if [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || "$OSTYPE" == "win32" ]]; then
